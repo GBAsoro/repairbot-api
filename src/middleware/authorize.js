@@ -10,7 +10,7 @@ async function authorize(req, res, next) {
     return res.status(401).json({
       error: true,
       code: "MISSING_API_KEY",
-      message: "Authorization header is required. Format: Bearer <api_key>",
+      message: "Authorization header is required.",
       retryable: false,
     });
   }
