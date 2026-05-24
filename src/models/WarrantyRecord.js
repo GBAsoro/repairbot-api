@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const WarrantyRecordSchema = new mongoose.Schema(
   {
@@ -7,35 +7,35 @@ const WarrantyRecordSchema = new mongoose.Schema(
       required: true,
       unique: true,
       trim: true,
-      index: true
-    },
-    product_category: {
-      type: String,
-      required: true,
-      enum: ['auto_body', 'home_appliance', 'it_hardware']
+      index: true,
     },
     warranty_status: {
       type: String,
-      enum: ['In Warranty', 'Out of Warranty', 'Service Plan Active', 'Unknown']
+      enum: [
+        "In Warranty",
+        "Out of Warranty",
+        "Service Plan Active",
+        "Unknown",
+      ],
     },
     warranty_expiry_date: {
-      type: Date
+      type: Date,
     },
     service_plan_type: {
-      type: String
+      type: String,
     },
     claim_eligible: {
       type: Boolean,
-      default: false
+      default: false,
     },
     purchase_date: {
-      type: Date
-    }
+      type: Date,
+    },
   },
   {
-    timestamps: true
-  }
+    timestamps: true,
+  },
 );
 
-const WarrantyRecord = mongoose.model('WarrantyRecord', WarrantyRecordSchema);
+const WarrantyRecord = mongoose.model("WarrantyRecord", WarrantyRecordSchema);
 module.exports = WarrantyRecord;

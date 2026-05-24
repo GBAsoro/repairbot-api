@@ -15,15 +15,6 @@ const serialNumberValidator = query("serial_number")
     "Invalid serial number format. Serial numbers must begin with SM100.",
   );
 
-const productCategoryValidator = query("product_category")
-  .exists({ checkFalsy: true })
-  .withMessage("product_category is required")
-  .bail()
-  .isIn(["auto_body", "home_appliance", "it_hardware"])
-  .withMessage(
-    "product_category must be one of auto_body, home_appliance, or it_hardware",
-  );
-
 const purchaseDateValidator = query("purchase_date")
   .optional()
   .isISO8601({ strict: true, strictSeparator: true })
@@ -62,7 +53,6 @@ function validateWarrantyQuery(req, res, next) {
 
 module.exports = {
   serialNumberValidator,
-  productCategoryValidator,
   purchaseDateValidator,
   validateWarrantyQuery,
 };

@@ -1,15 +1,10 @@
-const {
-  findBySerialNumberAndCategory,
-} = require("../repositories/warranty.repository");
+const { findBySerialNumber } = require("../repositories/warranty.repository");
 
 async function checkWarranty(req, res, next) {
   try {
-    const { serial_number, product_category } = req.query;
+    const { serial_number } = req.query;
 
-    const record = await findBySerialNumberAndCategory(
-      serial_number,
-      product_category,
-    );
+    const record = await findBySerialNumber(serial_number);
 
     if (!record) {
       return res.status(404).json({
@@ -28,7 +23,6 @@ async function checkWarranty(req, res, next) {
 
     return res.status(200).json({
       serial_number: record.serial_number,
-      product_category: record.product_category,
       warranty_status: warrantyStatus,
       warranty_expiry_date: record.warranty_expiry_date
         ? new Date(record.warranty_expiry_date).toISOString().split("T")[0]

@@ -1,8 +1,14 @@
 const express = require("express");
 const warrantyRoutes = require("./warranty.routes");
+const apiKeyRoutes = require("./apiKey.routes");
 
-const router = express.Router();
+const toolsRouter = express.Router();
+toolsRouter.use("/warranty", warrantyRoutes);
 
-router.use("/warranty", warrantyRoutes);
+const adminRouter = express.Router();
+adminRouter.use("/", apiKeyRoutes);
 
-module.exports = router;
+module.exports = {
+  toolsRouter,
+  adminRouter,
+};

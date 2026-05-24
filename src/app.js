@@ -1,7 +1,8 @@
 require("dotenv").config();
 const express = require("express");
 const { connectMongo } = require("./config/db");
-const routes = require("./routes");
+const { toolsRouter, adminRouter } = require("./routes");
+const authorize = require("./middleware/authorize");
 const errorHandler = require("./middleware/errorHandler");
 
 const app = express();
@@ -16,7 +17,8 @@ app.get("/", (req, res) => {
 });
 
 app.use(express.json());
-app.use("/tools", routes);
+app.use("/tools", authorize, toolsRouter);
+app.use("/admin/api-keys", adminRouter);
 app.use(errorHandler);
 
 app.listen(PORT, () => {
