@@ -1,0 +1,20 @@
+{
+  "name": "repairbot-api",
+  "version": "1.0.0",
+  "description": "RepairBot warranty validation API",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "seed": "node seed.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.4",
+    "express-validator": "^7.0.1",
+    "mongoose": "^7.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
