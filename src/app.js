@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 const { connectMongo } = require("./config/db");
 const { toolsRouter, adminRouter } = require("./routes");
 const authorize = require("./middleware/authorize");
@@ -9,6 +10,12 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 connectMongo();
+
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+  }),
+);
 
 app.get("/", (req, res) => {
   res.json({
