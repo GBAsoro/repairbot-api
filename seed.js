@@ -85,17 +85,6 @@ async function seed() {
     await WarrantyRecord.deleteMany({});
     await WarrantyRecord.insertMany(records);
 
-    const apiKeys = [
-      {
-        name: "RepairBot Dev Key",
-        key: "rb_2d8f4b6e1c9a305d7f2b8e4c1a906d3f",
-        active: true,
-      },
-    ];
-
-    await ApiKey.deleteMany({});
-    await ApiKey.insertMany(apiKeys);
-
     console.log("Seed data inserted successfully");
     process.exit(0);
   } catch (error) {
