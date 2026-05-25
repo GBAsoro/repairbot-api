@@ -13,7 +13,7 @@ connectMongo();
 
 app.use(
   cors({
-    origin: ["https://repairbot-api.onrender.com"],
+    origin: ["https://repair-bot-frontend-1.onrender.com"],
   }),
 );
 
