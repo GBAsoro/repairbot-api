@@ -1,5 +1,7 @@
 const crypto = require("crypto");
 const apiKeyRepository = require("../repositories/apiKey.repository");
+const { sendSuccess, sendNotFound } = require("../utils/responseBuilder");
+const { ERROR_CODES } = require("../utils/constants");
 
 const generateKey = () => `rb_${crypto.randomBytes(32).toString("hex")}`;
 
@@ -9,7 +11,7 @@ async function generateKeyController(req, res, next) {
     const key = generateKey();
     const apiKey = await apiKeyRepository.createKey(name, key);
 
-    return res.status(201).json({
+    return sendSuccess(res, 201, {
       message: "API key generated successfully",
       name: apiKey.name,
       key: apiKey.key,
@@ -25,7 +27,7 @@ async function listKeys(req, res, next) {
   try {
     const keys = await apiKeyRepository.findAll();
 
-    return res.status(200).json({
+    return sendSuccess(res, 200, {
       keys: keys.map((item) => ({
         id: item._id.toString(),
         name: item.name,
@@ -45,15 +47,10 @@ async function disableKey(req, res, next) {
     const key = await apiKeyRepository.disableKey(id);
 
     if (!key) {
-      return res.status(404).json({
-        error: true,
-        code: "API_KEY_NOT_FOUND",
-        message: "API key not found",
-        retryable: false,
-      });
+      return sendNotFound(res, ERROR_CODES.API_KEY_NOT_FOUND);
     }
 
-    return res.status(200).json({
+    return sendSuccess(res, 200, {
       message: "API key disabled successfully",
     });
   } catch (error) {
@@ -67,15 +64,10 @@ async function enableKey(req, res, next) {
     const key = await apiKeyRepository.enableKey(id);
 
     if (!key) {
-      return res.status(404).json({
-        error: true,
-        code: "API_KEY_NOT_FOUND",
-        message: "API key not found",
-        retryable: false,
-      });
+      return sendNotFound(res, ERROR_CODES.API_KEY_NOT_FOUND);
     }
 
-    return res.status(200).json({
+    return sendSuccess(res, 200, {
       message: "API key enabled successfully",
     });
   } catch (error) {
@@ -89,15 +81,10 @@ async function deleteKey(req, res, next) {
     const key = await apiKeyRepository.deleteKey(id);
 
     if (!key) {
-      return res.status(404).json({
-        error: true,
-        code: "API_KEY_NOT_FOUND",
-        message: "API key not found",
-        retryable: false,
-      });
+      return sendNotFound(res, ERROR_CODES.API_KEY_NOT_FOUND);
     }
 
-    return res.status(200).json({
+    return sendSuccess(res, 200, {
       message: "API key deleted successfully",
     });
   } catch (error) {

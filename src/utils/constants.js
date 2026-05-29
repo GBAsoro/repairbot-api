@@ -1,0 +1,48 @@
+const ERROR_CODES = {
+  MISSING_API_KEY: 'MISSING_API_KEY',
+  INVALID_AUTH_FORMAT: 'INVALID_AUTH_FORMAT',
+  INVALID_API_KEY: 'INVALID_API_KEY',
+  API_KEY_DISABLED: 'API_KEY_DISABLED',
+  API_KEY_NOT_FOUND: 'API_KEY_NOT_FOUND',
+  WARRANTY_NOT_FOUND: 'WARRANTY_NOT_FOUND',
+  INVALID_SERIAL_NUMBER: 'INVALID_SERIAL_NUMBER',
+  VALIDATION_ERROR: 'VALIDATION_ERROR',
+  UNAUTHORIZED_ADMIN: 'UNAUTHORIZED_ADMIN',
+  UNHANDLED_ERROR: 'UNHANDLED_ERROR',
+};
+
+const WARRANTY_STATUS = [
+  'In Warranty',
+  'Out of Warranty',
+  'Service Plan Active',
+  'Unknown',
+];
+
+const ERROR_MESSAGES = {
+  [ERROR_CODES.MISSING_API_KEY]: 'Missing or invalid API key in Authorization header',
+  [ERROR_CODES.INVALID_AUTH_FORMAT]: 'Invalid Authorization header format',
+  [ERROR_CODES.INVALID_API_KEY]: 'Invalid API key',
+  [ERROR_CODES.API_KEY_DISABLED]: 'API key has been disabled',
+  [ERROR_CODES.API_KEY_NOT_FOUND]: 'API key not found',
+  [ERROR_CODES.WARRANTY_NOT_FOUND]: 'No warranty record found',
+  [ERROR_CODES.INVALID_SERIAL_NUMBER]: 'Invalid serial number format',
+  [ERROR_CODES.VALIDATION_ERROR]: 'Validation failed',
+  [ERROR_CODES.UNAUTHORIZED_ADMIN]: 'Unauthorized admin access',
+  [ERROR_CODES.UNHANDLED_ERROR]: 'Something went wrong',
+};
+
+const VALIDATION_PATTERNS = {
+  SERIAL_NUMBER: /^SM100[A-Za-z0-9\-]+$/,
+  SERIAL_NUMBER_LENGTH: { min: 8, max: 20 },
+  API_KEY_NAME: { min: 3, max: 50 },
+};
+
+const DATE_FORMAT = 'YYYY-MM-DD';
+
+module.exports = {
+  ERROR_CODES,
+  WARRANTY_STATUS,
+  ERROR_MESSAGES,
+  VALIDATION_PATTERNS,
+  DATE_FORMAT,
+};

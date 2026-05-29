@@ -2,47 +2,46 @@ const express = require("express");
 const {
   checkWarranty,
   listWarranties,
-  createWarranty,
-  updateWarranty,
-  deleteWarranty,
+  createWarrantyRecord,
+  updateWarrantyRecord,
+  deleteWarrantyRecord,
 } = require("../controllers/warranty.controller");
 const {
   serialNumberValidator,
   purchaseDateValidator,
-  validateWarrantyQuery,
   createWarrantyValidator,
   updateWarrantyValidator,
   idParamValidator,
-  validateWarrantyRequest,
 } = require("../validators/warranty.validator");
+const validationHandler = require("../middleware/validationHandler");
 
 const router = express.Router();
 
 router.get(
   "/check",
-  [serialNumberValidator, purchaseDateValidator, validateWarrantyQuery],
+  [serialNumberValidator, purchaseDateValidator],
+  validationHandler,
   checkWarranty,
 );
 
-// CRUD routes for warranty records
 router.get("/", listWarranties);
 router.post(
   "/",
   createWarrantyValidator,
-  validateWarrantyRequest,
-  createWarranty,
+  validationHandler,
+  createWarrantyRecord,
 );
 router.patch(
   "/:id",
   updateWarrantyValidator,
-  validateWarrantyRequest,
-  updateWarranty,
+  validationHandler,
+  updateWarrantyRecord,
 );
 router.delete(
   "/:id",
   idParamValidator,
-  validateWarrantyRequest,
-  deleteWarranty,
+  validationHandler,
+  deleteWarrantyRecord,
 );
 
 module.exports = router;

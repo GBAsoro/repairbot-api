@@ -1,4 +1,5 @@
-const { body, validationResult } = require("express-validator");
+const { body } = require("express-validator");
+const { VALIDATION_PATTERNS } = require("../utils/constants");
 
 const generateApiKeyValidator = body("name")
   .exists({ checkFalsy: true })
@@ -7,27 +8,9 @@ const generateApiKeyValidator = body("name")
   .isString()
   .withMessage("name must be a string")
   .bail()
-  .isLength({ min: 3, max: 50 })
+  .isLength(VALIDATION_PATTERNS.API_KEY_NAME)
   .withMessage("name must be between 3 and 50 characters");
-
-function validateApiKeyRequest(req, res, next) {
-  const errors = validationResult(req);
-
-  if (errors.isEmpty()) {
-    return next();
-  }
-
-  const firstError = errors.array({ onlyFirstError: true })[0];
-
-  return res.status(400).json({
-    error: true,
-    code: "VALIDATION_ERROR",
-    message: firstError.msg,
-    retryable: false,
-  });
-}
 
 module.exports = {
   generateApiKeyValidator,
-  validateApiKeyRequest,
 };
